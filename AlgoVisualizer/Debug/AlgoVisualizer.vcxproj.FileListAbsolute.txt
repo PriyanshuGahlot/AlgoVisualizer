@@ -1,0 +1,3 @@
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\Debug\AlgoVisualizer.vcxproj.AssemblyReference.cache
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\Debug\AlgoVisualizer.MyForm.resources
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\Debug\AlgoVisualizer.vcxproj.GenerateResource.cache

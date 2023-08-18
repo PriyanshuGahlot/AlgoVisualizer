@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <list>
 
 namespace AlgoVisualizer {
 
@@ -34,6 +36,16 @@ namespace AlgoVisualizer {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::TextBox^ textBox1;
+	protected:
+
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ bubble;
+	private: System::Windows::Forms::Button^ insertion;
+	private: System::Windows::Forms::Button^ selection;
+
+
+
 
 	private:
 		/// <summary>
@@ -48,12 +60,99 @@ namespace AlgoVisualizer {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"MyForm";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->bubble = (gcnew System::Windows::Forms::Button());
+			this->insertion = (gcnew System::Windows::Forms::Button());
+			this->selection = (gcnew System::Windows::Forms::Button());
+			this->SuspendLayout();
+			// 
+			// textBox1
+			// 
+			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16));
+			this->textBox1->Location = System::Drawing::Point(50, 150);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(860, 38);
+			this->textBox1->TabIndex = 0;
+			// 
+			// label1
+			// 
+			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20));
+			this->label1->Location = System::Drawing::Point(355, 60);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(246, 39);
+			this->label1->TabIndex = 2;
+			this->label1->Text = L"Algo-Visualizer";
+			// 
+			// bubble
+			// 
+			this->bubble->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->bubble->Location = System::Drawing::Point(194, 338);
+			this->bubble->Name = L"bubble";
+			this->bubble->Size = System::Drawing::Size(133, 42);
+			this->bubble->TabIndex = 1;
+			this->bubble->Text = L"Bubble Sort";
+			this->bubble->UseVisualStyleBackColor = true;
+			this->bubble->Click += gcnew System::EventHandler(this, &MyForm::bubble_Click);
+			// 
+			// insertion
+			// 
+			this->insertion->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->insertion->Location = System::Drawing::Point(387, 338);
+			this->insertion->Name = L"insertion";
+			this->insertion->Size = System::Drawing::Size(153, 42);
+			this->insertion->TabIndex = 3;
+			this->insertion->Text = L"Insertion Sort";
+			this->insertion->UseVisualStyleBackColor = true;
+			this->insertion->Click += gcnew System::EventHandler(this, &MyForm::insertion_Click);
+			// 
+			// selection
+			// 
+			this->selection->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->selection->Location = System::Drawing::Point(600, 338);
+			this->selection->Name = L"selection";
+			this->selection->Size = System::Drawing::Size(158, 42);
+			this->selection->TabIndex = 4;
+			this->selection->Text = L"Selection Sort";
+			this->selection->UseVisualStyleBackColor = true;
+			this->selection->Click += gcnew System::EventHandler(this, &MyForm::selection_Click);
+			// 
+			// MyForm
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(960, 540);
+			this->Controls->Add(this->selection);
+			this->Controls->Add(this->insertion);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->bubble);
+			this->Controls->Add(this->textBox1);
+			this->Name = L"MyForm";
+			this->Text = L"MyForm";
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
 		}
 #pragma endregion
-	};
+
+
+
+
+		private: System::Void bubble_Click(System::Object^ sender, System::EventArgs^ e) {
+			
+		}
+		private: System::Void insertion_Click(System::Object^ sender, System::EventArgs^ e) {
+		}
+		private: System::Void selection_Click(System::Object^ sender, System::EventArgs^ e) {
+		}
+
+
+
+
+};
 }

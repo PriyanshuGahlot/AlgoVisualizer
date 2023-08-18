@@ -1,6 +1,4 @@
 ﻿  MyForm.cpp
-  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
-  Generating Code...
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-LINK : error LNK2001: unresolved external symbol _main
-D:\cpp winApps\AlgoVisualizer\Debug\AlgoVisualizer.exe : fatal error LNK1120: 1 unresolved externals
+  AlgoVisualizer.vcxproj -> D:\cpp winApps\AlgoVisualizer\Debug\AlgoVisualizer.exe
