@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <string>
+#include "MyForm2.h"
 
 namespace AlgoVisualizer {
 
@@ -36,7 +38,7 @@ namespace AlgoVisualizer {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ inputBox;
 	protected:
 
 	private: System::Windows::Forms::Label^ label1;
@@ -60,22 +62,22 @@ namespace AlgoVisualizer {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->inputBox = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->bubble = (gcnew System::Windows::Forms::Button());
 			this->insertion = (gcnew System::Windows::Forms::Button());
 			this->selection = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// textBox1
+			// inputBox
 			// 
-			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+			this->inputBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16));
-			this->textBox1->Location = System::Drawing::Point(50, 150);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(860, 38);
-			this->textBox1->TabIndex = 0;
+			this->inputBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16));
+			this->inputBox->Location = System::Drawing::Point(50, 150);
+			this->inputBox->Name = L"inputBox";
+			this->inputBox->Size = System::Drawing::Size(860, 38);
+			this->inputBox->TabIndex = 0;
 			// 
 			// label1
 			// 
@@ -92,13 +94,13 @@ namespace AlgoVisualizer {
 			// bubble
 			// 
 			this->bubble->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->bubble->Location = System::Drawing::Point(194, 338);
+			this->bubble->Location = System::Drawing::Point(172, 338);
 			this->bubble->Name = L"bubble";
-			this->bubble->Size = System::Drawing::Size(133, 42);
+			this->bubble->Size = System::Drawing::Size(155, 42);
 			this->bubble->TabIndex = 1;
 			this->bubble->Text = L"Bubble Sort";
 			this->bubble->UseVisualStyleBackColor = true;
-			this->bubble->Click += gcnew System::EventHandler(this, &MyForm::bubble_Click);
+			this->bubble->Click += gcnew System::EventHandler(this, &MyForm::Click_btn);
 			// 
 			// insertion
 			// 
@@ -109,7 +111,7 @@ namespace AlgoVisualizer {
 			this->insertion->TabIndex = 3;
 			this->insertion->Text = L"Insertion Sort";
 			this->insertion->UseVisualStyleBackColor = true;
-			this->insertion->Click += gcnew System::EventHandler(this, &MyForm::insertion_Click);
+			this->insertion->Click += gcnew System::EventHandler(this, &MyForm::Click_btn);
 			// 
 			// selection
 			// 
@@ -120,7 +122,7 @@ namespace AlgoVisualizer {
 			this->selection->TabIndex = 4;
 			this->selection->Text = L"Selection Sort";
 			this->selection->UseVisualStyleBackColor = true;
-			this->selection->Click += gcnew System::EventHandler(this, &MyForm::selection_Click);
+			this->selection->Click += gcnew System::EventHandler(this, &MyForm::Click_btn);
 			// 
 			// MyForm
 			// 
@@ -131,28 +133,32 @@ namespace AlgoVisualizer {
 			this->Controls->Add(this->insertion);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->bubble);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->inputBox);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Algo-Visualizer";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 
-
-
-
-		private: System::Void bubble_Click(System::Object^ sender, System::EventArgs^ e) {
-			
+		private: System::Collections::Generic::List<int>^ strToArr(String^ inp, String^ delimiter) {
+			array<String^>^ tokens = inp->Split(gcnew array<String^> { delimiter }, StringSplitOptions::None);
+			System::Collections::Generic::List<int>^ resultList = gcnew System::Collections::Generic::List<int>();
+			for each (String ^ token in tokens) {
+				int value;
+				if (Int32::TryParse(token, value)) {
+					resultList->Add(value);
+				}
+			}
+			return resultList;
 		}
-		private: System::Void insertion_Click(System::Object^ sender, System::EventArgs^ e) {
-		}
-		private: System::Void selection_Click(System::Object^ sender, System::EventArgs^ e) {
-		}
 
 
-
+	private: System::Void Click_btn(System::Object^ sender, System::EventArgs^ e) {
+		MyForm2^ form2 = gcnew MyForm2(((System::Windows::Forms::Button^)sender)->Text->ToString(),strToArr(inputBox->Text->ToString(),","));
+		form2->ShowDialog();
+	}
 
 };
 }
