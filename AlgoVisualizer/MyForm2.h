@@ -19,6 +19,7 @@ namespace AlgoVisualizer {
 		System::Collections::Generic::List<Label^>^ labelArray;
 		MyForm2(String^ algoName, System::Collections::Generic::List<int>^ arr)
 		{
+			labelArray = gcnew System::Collections::Generic::List<Label^>();
 			InitializeComponent(algoName,arr);
 			//
 			//TODO: Add the constructor code here
@@ -68,8 +69,8 @@ namespace AlgoVisualizer {
 				myLabel->TextAlign = ContentAlignment::MiddleCenter;
 				myLabel->Size = System::Drawing::Size(30, 30);
 				currPos += 50;
+				this->labelArray->Add(myLabel);
 				this->Controls->Add(myLabel);
-				labelArray->Add(myLabel);
 			}
 
 			Button^ startBtn = gcnew Button();
@@ -87,7 +88,7 @@ namespace AlgoVisualizer {
 #pragma endregion
 
 	private: System::Void start(System::Object^ sender, System::EventArgs^ e) {
-
+		
 	}
 
 	};
