@@ -37,6 +37,8 @@ namespace AlgoVisualizer {
 			}
 		}
 
+	protected:
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -69,7 +71,24 @@ namespace AlgoVisualizer {
 				this->Controls->Add(myLabel);
 				labelArray->Add(myLabel);
 			}
+
+			Button^ startBtn = gcnew Button();
+			startBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			startBtn->Location = System::Drawing::Point(400, 400);
+			startBtn->Name = L"startBtn";
+			startBtn->Size = System::Drawing::Size(160, 40);
+			startBtn->TabIndex = 3;
+			startBtn->Text = L"Start";
+			startBtn->UseVisualStyleBackColor = true;
+			startBtn->Click += gcnew System::EventHandler(this, &MyForm2::start);
+			this->Controls->Add(startBtn);
+
 		}
 #pragma endregion
+
+	private: System::Void start(System::Object^ sender, System::EventArgs^ e) {
+
+	}
+
 	};
 }
