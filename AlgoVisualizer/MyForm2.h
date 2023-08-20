@@ -8,6 +8,7 @@ namespace AlgoVisualizer {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Diagnostics;
 
 	/// <summary>
 	/// Summary for MyForm2
@@ -15,6 +16,7 @@ namespace AlgoVisualizer {
 	public ref class MyForm2 : public System::Windows::Forms::Form
 	{
 	public:
+		System::Collections::Generic::List<Label^>^ labelArray;
 		MyForm2(String^ algoName, System::Collections::Generic::List<int>^ arr)
 		{
 			InitializeComponent(algoName,arr);
@@ -52,7 +54,21 @@ namespace AlgoVisualizer {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(960, 540);
 			this->Text = title;
-			
+			int currPos = 50;
+			for each (int i in arr) {
+				Label^ myLabel = gcnew Label();
+				myLabel->Text = i.ToString();
+				myLabel->Location = Point(currPos, 50);
+				myLabel->AutoSize = false;
+				myLabel->BackColor = System::Drawing::Color::Yellow;
+				myLabel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+				myLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+				myLabel->TextAlign = ContentAlignment::MiddleCenter;
+				myLabel->Size = System::Drawing::Size(30, 30);
+				currPos += 50;
+				this->Controls->Add(myLabel);
+				labelArray->Add(myLabel);
+			}
 		}
 #pragma endregion
 	};
