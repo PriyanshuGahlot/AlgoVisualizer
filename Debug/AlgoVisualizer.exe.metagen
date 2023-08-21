@@ -20,6 +20,8 @@ Class AlgoVisualizer.MyForm2: AutoLayout, AnsiClass, Class, Public, BeforeFieldI
     Void .ctor(System.String, System.Collections.Generic.List`1[System.Int32]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     System.Collections.Generic.List`1[System.Windows.Forms.Label] labelArray : Public
+    System.Collections.Generic.List`1[System.Int32] arr : Public
+    System.String algoName : Public
 Class AlgoVisualizer.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

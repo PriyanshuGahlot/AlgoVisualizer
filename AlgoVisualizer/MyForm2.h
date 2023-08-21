@@ -10,6 +10,7 @@ namespace AlgoVisualizer {
 	using namespace System::Drawing;
 	using namespace System::Diagnostics;
 
+
 	/// <summary>
 	/// Summary for MyForm2
 	/// </summary>
@@ -17,10 +18,17 @@ namespace AlgoVisualizer {
 	{
 	public:
 		System::Collections::Generic::List<Label^>^ labelArray;
+		System::Collections::Generic::List<int>^ arr;
+		String^ algoName;
 		MyForm2(String^ algoName, System::Collections::Generic::List<int>^ arr)
 		{
+			this->arr = arr;
+			this->algoName = algoName;
 			labelArray = gcnew System::Collections::Generic::List<Label^>();
-			InitializeComponent(algoName,arr);
+			timer = gcnew System::Windows::Forms::Timer();
+			timer->Interval = 50;
+			timer->Tick += gcnew System::EventHandler(this, &MyForm2::timer_Tick);
+			InitializeComponent(algoName);
 			//
 			//TODO: Add the constructor code here
 			//
@@ -44,14 +52,20 @@ namespace AlgoVisualizer {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
+		System::Windows::Forms::Timer^ timer;
+		bool isSwapping = false;
+		Label^ label1;
+		Label^ label2;
+		System::Drawing::Point p1;
+		System::Drawing::Point p2;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(String^ title, System::Collections::Generic::List<int>^ arr)
+		void InitializeComponent(String^ title)
 		{
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -87,9 +101,68 @@ namespace AlgoVisualizer {
 		}
 #pragma endregion
 
+		void timer_Tick(System::Object^ sender, System::EventArgs^ e) {
+			int step = 1;
+			int multiplyer = 1;
+			if (label1->Location.X != p2.X) {
+				if (label1->Location.X > p2.X) multiplyer = -1;
+				label1->Location = System::Drawing::Point(label1->Location.X + step*multiplyer, label1->Location.Y);
+			}
+			else if (label2->Location.X != p1.X) {
+				if (label2->Location.X > p1.X) multiplyer = -1;
+				label2->Location = System::Drawing::Point(label2->Location.X + step*multiplyer, label1->Location.Y);
+			}
+			else {
+				isSwapping = false;
+				timer->Stop();
+			}
+
+		}
+
 	private: System::Void start(System::Object^ sender, System::EventArgs^ e) {
-		
+		int n = arr->Count;
+		if (algoName->Equals("Bubble Sort")) {
+			for (int i = 0;i < n;i++) {
+				bool swaped = false;
+				for (int j = 0;j < n - i - 1;j++) {
+					if (arr[j] > arr[j + 1]) {
+						swap(arr, j, j + 1);
+						isSwapping = true;
+						while (isSwapping)
+						{
+							Application::DoEvents();
+						}
+						for each (int i in arr) {
+							Debug::Write(i);
+						}
+						Debug::WriteLine("");
+						for each (Label ^ label in labelArray)
+						{
+							Debug::Write(label->Text);
+						}
+						swaped = true;
+					}
+				}
+				if (!swaped) break;
+			}
+		}
 	}
+
+		   void swap(System::Collections::Generic::List<int>^ arr, int i, int j) {
+			   Debug::WriteLine("swap");
+			   int temp = arr[i];
+			   arr[i] = arr[j];
+			   arr[j] = temp;
+			   label1 = labelArray[i];
+			   label2 = labelArray[j];
+			   p1 = label1->Location;
+			   p2 = label2->Location;
+			   Label^ tempLabel = labelArray[i];
+			   labelArray[i] = labelArray[j];
+			   labelArray[j] = tempLabel;
+			   timer->Start();
+		   }
+
 
 	};
 }
