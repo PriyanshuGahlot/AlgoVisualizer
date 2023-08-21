@@ -143,26 +143,68 @@ namespace AlgoVisualizer {
 						label2 = labelArray[j];
 						label1->BackColor = System::Drawing::Color::LightGreen;
 						label2->BackColor = System::Drawing::Color::LightGreen;
-						//wait for 1 sec
 						DateTime startTime = DateTime::Now;
-
-						// Process messages while waiting
 						while ((DateTime::Now - startTime).TotalMilliseconds < 1000) {
 							Application::DoEvents();
 						}
 
 						label1->BackColor = System::Drawing::Color::Yellow;
 						label2->BackColor = System::Drawing::Color::Yellow;
-						
+						startTime = DateTime::Now;
+						while ((DateTime::Now - startTime).TotalMilliseconds < 500) {
+							Application::DoEvents();
+						}
 					}
 				}
 				if (!swaped) break;
 			}
 		}
+		else if (algoName->Equals("Selection Sort")) {
+			Label^ minLabel = gcnew Label();
+			minLabel->Text = "Min";
+			minLabel->Location = Point(labelArray[0]->Location.X, labelArray[0]->Location.Y);
+			minLabel->AutoSize = false;
+			minLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			minLabel->TextAlign = ContentAlignment::MiddleLeft;
+			minLabel->Size = System::Drawing::Size(30, 30);
+			this->Controls->Add(minLabel);
+			for (int i = 0;i < n;i++) {
+				int minIndex = i;
+				minLabel->Location = Point(labelArray[minIndex]->Location.X, labelArray[minIndex]->Location.Y + 50);
+				for (int j = i;j < n;j++) {
+					label1 = labelArray[j];
+					label2 = labelArray[minIndex];
+					label1->BackColor = System::Drawing::Color::LightGreen;
+					label2->BackColor = System::Drawing::Color::LightGreen;
+					DateTime startTime = DateTime::Now;
+					while ((DateTime::Now - startTime).TotalMilliseconds < 1000) {
+						Application::DoEvents();
+					}
+					label1->BackColor = System::Drawing::Color::Yellow;
+					label2->BackColor = System::Drawing::Color::Yellow;
+					if (arr[j] < arr[minIndex]) {
+						minIndex = j;
+						minLabel->Location = Point(labelArray[minIndex]->Location.X, labelArray[minIndex]->Location.Y + 50);
+					}
+				}
+				if (minIndex != i) {
+					swap(arr, i, minIndex);
+					isSwapping = true;
+					minLabel->Visible = false;
+					while (isSwapping)
+					{
+						Application::DoEvents();
+					}
+					minLabel->Visible = true;
+					label1->BackColor = System::Drawing::Color::Yellow;
+					label2->BackColor = System::Drawing::Color::Yellow;
+				}
+			}
+			minLabel->Visible = false;
+		}
 	}
 
 		   void swap(System::Collections::Generic::List<int>^ arr, int i, int j) {
-			   Debug::WriteLine("swap");
 			   int temp = arr[i];
 			   arr[i] = arr[j];
 			   arr[j] = temp;
@@ -170,6 +212,10 @@ namespace AlgoVisualizer {
 			   label2 = labelArray[j];
 			   label1->BackColor = System::Drawing::Color::LightGreen;
 			   label2->BackColor = System::Drawing::Color::LightGreen;
+			   DateTime startTime = DateTime::Now;
+			   while ((DateTime::Now - startTime).TotalMilliseconds < 500) {
+				   Application::DoEvents();
+			   }
 			   p1 = label1->Location;
 			   p2 = label2->Location;
 			   Label^ tempLabel = labelArray[i];
