@@ -26,7 +26,7 @@ namespace AlgoVisualizer {
 			this->algoName = algoName;
 			labelArray = gcnew System::Collections::Generic::List<Label^>();
 			timer = gcnew System::Windows::Forms::Timer();
-			timer->Interval = 50;
+			timer->Interval = 25;
 			timer->Tick += gcnew System::EventHandler(this, &MyForm2::timer_Tick);
 			InitializeComponent(algoName);
 			//
@@ -55,6 +55,7 @@ namespace AlgoVisualizer {
 		System::ComponentModel::Container^ components;
 		System::Windows::Forms::Timer^ timer;
 		bool isSwapping = false;
+		bool hold = false;
 		Label^ label1;
 		Label^ label2;
 		System::Drawing::Point p1;
@@ -132,15 +133,27 @@ namespace AlgoVisualizer {
 						{
 							Application::DoEvents();
 						}
-						for each (int i in arr) {
-							Debug::Write(i);
-						}
-						Debug::WriteLine("");
-						for each (Label ^ label in labelArray)
-						{
-							Debug::Write(label->Text);
-						}
+						label1->BackColor = System::Drawing::Color::Yellow;
+						label2->BackColor = System::Drawing::Color::Yellow;
 						swaped = true;
+					}
+					else
+					{
+						label1 = labelArray[j+1];
+						label2 = labelArray[j];
+						label1->BackColor = System::Drawing::Color::LightGreen;
+						label2->BackColor = System::Drawing::Color::LightGreen;
+						//wait for 1 sec
+						DateTime startTime = DateTime::Now;
+
+						// Process messages while waiting
+						while ((DateTime::Now - startTime).TotalMilliseconds < 1000) {
+							Application::DoEvents();
+						}
+
+						label1->BackColor = System::Drawing::Color::Yellow;
+						label2->BackColor = System::Drawing::Color::Yellow;
+						
 					}
 				}
 				if (!swaped) break;
@@ -155,6 +168,8 @@ namespace AlgoVisualizer {
 			   arr[j] = temp;
 			   label1 = labelArray[i];
 			   label2 = labelArray[j];
+			   label1->BackColor = System::Drawing::Color::LightGreen;
+			   label2->BackColor = System::Drawing::Color::LightGreen;
 			   p1 = label1->Location;
 			   p2 = label2->Location;
 			   Label^ tempLabel = labelArray[i];
@@ -163,6 +178,10 @@ namespace AlgoVisualizer {
 			   timer->Start();
 		   }
 
-
+		   void waitTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
+			   System::Windows::Forms::Timer^ waitTimer = static_cast<System::Windows::Forms::Timer^>(sender);
+			   hold = false;
+			   waitTimer->Stop();
+		   }
 	};
 }
