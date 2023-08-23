@@ -49,6 +49,7 @@ namespace AlgoVisualizer {
 
 
 
+
 	private:
 		/// <summary>
 		/// Required designer variable.
