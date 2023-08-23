@@ -248,6 +248,11 @@ namespace AlgoVisualizer {
 						arr[j + 1] = arr[j];
 						locToGoTo = labelArray[j]->Location;
 						labelToMove = labelArray[j];
+						labelToMove->BackColor = System::Drawing::Color::LightGreen;
+						DateTime startTime = DateTime::Now;
+						while ((DateTime::Now - startTime).TotalMilliseconds < 500) {
+							Application::DoEvents();
+						}
 						finalPos = Point(labelToMove->Location.X+50,labelToMove->Location.Y);
 						moveTimer->Start();
 						movingUp = true;
@@ -255,6 +260,7 @@ namespace AlgoVisualizer {
 						{
 							Application::DoEvents();
 						}
+						labelToMove->BackColor = System::Drawing::Color::Yellow;
 						labelArray[j + 1] = labelArray[j];
 						swaped = true;
 						empty = j;
@@ -289,9 +295,6 @@ namespace AlgoVisualizer {
 				}
 				tempLabel->BackColor = System::Drawing::Color::Yellow;
 			}
-		}
-		for each (Label^ l in labelArray) {
-			Debug::Write(l->Text);
 		}
 	}
 
