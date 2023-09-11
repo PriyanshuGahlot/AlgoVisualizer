@@ -296,6 +296,77 @@ namespace AlgoVisualizer {
 				tempLabel->BackColor = System::Drawing::Color::Yellow;
 			}
 		}
+		else if (algoName->Equals("Merge Sort")) {
+			mergeSort(arr, 0, n - 1);
+			for each (int i in arr) {
+				Console::WriteLine(i);
+			}
+		}
+	}
+
+	void mergeSort(System::Collections::Generic::List<int>^ arr, int const left, int const right)
+	{
+		if (left < right) {
+			int mid = (left + right) / 2;
+			mergeSort(arr, left, mid);
+			mergeSort(arr, mid + 1, right);
+			merge(arr, left, mid, right);
+		}
+	}
+
+	void merge(System::Collections::Generic::List<int>^ arr, int l, int mid, int r)
+	{
+		for (int x = l;x <= r;x++) {
+			labelArray[x]->BackColor = System::Drawing::Color::Aqua;
+		}
+
+		wait(500);
+
+		System::Collections::Generic::List<int>^ arr2 = gcnew System::Collections::Generic::List<int>(r + 1);
+		int i = l;
+		int j = mid + 1;
+		int curr = l;
+
+		while (j <= r && i <= mid) {
+			if (arr[i] < arr[j]) {
+				arr2->Add(arr[i]); // Use Add to add elements to the List
+				i++;
+			}
+			else {
+				arr2->Add(arr[j]); // Use Add to add elements to the List
+				j++;
+			}
+			curr++;
+		}
+
+		while (i <= mid) {
+			arr2->Add(arr[i]); // Add remaining elements from the left subarray
+			i++;
+			curr++;
+		}
+
+		while (j <= r) {
+			arr2->Add(arr[j]); // Add remaining elements from the right subarray
+			j++;
+			curr++;
+		}
+
+		// Copy elements back to the original array 'arr'
+		for (int k = l; k <= r; k++) {
+			arr[k] = arr2[k - l]; // Subtract 'l' to map the index correctly
+		}
+
+		for (int x = l;x <= r;x++) {
+			labelArray[x]->BackColor = System::Drawing::Color::Yellow;
+		}
+
+	}
+
+	void wait(int n) {
+		DateTime startTime = DateTime::Now;
+		while ((DateTime::Now - startTime).TotalMilliseconds < n) {
+			Application::DoEvents();
+		}
 	}
 
 		   void swap(System::Collections::Generic::List<int>^ arr, int i, int j) {

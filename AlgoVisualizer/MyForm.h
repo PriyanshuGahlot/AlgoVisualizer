@@ -45,6 +45,8 @@ namespace AlgoVisualizer {
 	private: System::Windows::Forms::Button^ bubble;
 	private: System::Windows::Forms::Button^ insertion;
 	private: System::Windows::Forms::Button^ selection;
+	private: System::Windows::Forms::Button^ merge;
+	private: System::Windows::Forms::Button^ button1;
 
 
 
@@ -68,6 +70,7 @@ namespace AlgoVisualizer {
 			this->bubble = (gcnew System::Windows::Forms::Button());
 			this->insertion = (gcnew System::Windows::Forms::Button());
 			this->selection = (gcnew System::Windows::Forms::Button());
+			this->merge = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// inputBox
@@ -125,13 +128,26 @@ namespace AlgoVisualizer {
 			this->selection->UseVisualStyleBackColor = true;
 			this->selection->Click += gcnew System::EventHandler(this, &MyForm::Click_btn);
 			// 
+			// merge
+			// 
+			this->merge->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->merge->Location = System::Drawing::Point(172, 403);
+			this->merge->Name = L"merge";
+			this->merge->Size = System::Drawing::Size(155, 42);
+			this->merge->TabIndex = 5;
+			this->merge->Text = L"Merge Sort";
+			this->merge->UseVisualStyleBackColor = true;
+			this->merge->Click += gcnew System::EventHandler(this, &MyForm::Click_btn);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(960, 540);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->selection);
 			this->Controls->Add(this->insertion);
+			this->Controls->Add(this->merge);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->bubble);
 			this->Controls->Add(this->inputBox);
