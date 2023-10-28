@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 
 namespace AlgoVisualizer {
 
@@ -298,10 +299,52 @@ namespace AlgoVisualizer {
 		}
 		else if (algoName->Equals("Merge Sort")) {
 			mergeSort(arr, 0, n - 1);
-			for each (int i in arr) {
-				Console::WriteLine(i);
+		}
+		else if (algoName->Equals("Quick Sort")) {
+			QuickSort(arr, 0, n - 1);
+		}
+	}
+
+	void QuickSort(System::Collections::Generic::List<int>^ arr, int const left, int const right) {
+		if (left < right) {
+			int pivot = partition(arr, left, right);
+			QuickSort(arr,left, pivot-1);
+			QuickSort(arr,pivot+1, right);
+		}
+	}
+
+	int partition(System::Collections::Generic::List<int>^ arr, int const left, int const right) {
+		int pivot = arr[left];
+		int i = left+1;
+		int j = right;
+		while (i<j)
+		{
+			while (arr[i] <= pivot && i < right) {
+				i++;
+			}
+			while (arr[j] > pivot) {
+				j--;
+			}
+			if (i <= j) {
+				swap(arr, i, j);
+				isSwapping = true;
+				while (isSwapping)
+				{
+					Application::DoEvents();
+				}
+				label1->BackColor = System::Drawing::Color::Yellow;
+				label2->BackColor = System::Drawing::Color::Yellow;
 			}
 		}
+		swap(arr, j, left);
+		isSwapping = true;
+		while (isSwapping)
+		{
+			Application::DoEvents();
+		}
+		label1->BackColor = System::Drawing::Color::Yellow;
+		label2->BackColor = System::Drawing::Color::Yellow;
+		return j;
 	}
 
 	void mergeSort(System::Collections::Generic::List<int>^ arr, int const left, int const right)
@@ -309,7 +352,19 @@ namespace AlgoVisualizer {
 		if (left < right) {
 			int mid = (left + right) / 2;
 			mergeSort(arr, left, mid);
+			for (int i = left;i < mid;i++) {
+				int red = std::rand() % 256;  // Random value between 0 and 255
+				int green = std::rand() % 256;
+				int blue = std::rand() % 256;
+				//labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
+			}
 			mergeSort(arr, mid + 1, right);
+			for (int i = mid;i < right;i++) {
+				int red = std::rand() % 256;  // Random value between 0 and 255
+				int green = std::rand() % 256;
+				int blue = std::rand() % 256;
+				//labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
+			}
 			merge(arr, left, mid, right);
 		}
 	}
@@ -320,7 +375,7 @@ namespace AlgoVisualizer {
 			labelArray[x]->BackColor = System::Drawing::Color::Aqua;
 		}
 
-		wait(500);
+		wait(1000);
 
 		System::Collections::Generic::List<int>^ arr2 = gcnew System::Collections::Generic::List<int>(r + 1);
 		int i = l;
@@ -354,6 +409,7 @@ namespace AlgoVisualizer {
 		// Copy elements back to the original array 'arr'
 		for (int k = l; k <= r; k++) {
 			arr[k] = arr2[k - l]; // Subtract 'l' to map the index correctly
+			
 		}
 
 		for (int x = l;x <= r;x++) {
@@ -377,10 +433,7 @@ namespace AlgoVisualizer {
 			   label2 = labelArray[j];
 			   label1->BackColor = System::Drawing::Color::LightGreen;
 			   label2->BackColor = System::Drawing::Color::LightGreen;
-			   DateTime startTime = DateTime::Now;
-			   while ((DateTime::Now - startTime).TotalMilliseconds < 500) {
-				   Application::DoEvents();
-			   }
+			   wait(500);
 			   p1 = label1->Location;
 			   p2 = label2->Location;
 			   Label^ tempLabel = labelArray[i];

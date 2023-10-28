@@ -1,6 +1,8 @@
 ﻿  MyForm.cpp
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\MyForm2.h(315,1): warning C4965: implicit box of integer 0; use nullptr or explicit cast
 D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   MyForm2.cpp
+D:\cpp winApps\AlgoVisualizer\AlgoVisualizer\MyForm2.h(315,1): warning C4965: implicit box of integer 0; use nullptr or explicit cast
   Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   AlgoVisualizer.vcxproj -> D:\cpp winApps\AlgoVisualizer\Debug\AlgoVisualizer.exe
