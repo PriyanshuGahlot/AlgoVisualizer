@@ -114,11 +114,11 @@ namespace AlgoVisualizer {
 			int multiplyer = 1;
 			if (label1->Location.X != p2.X) {
 				if (label1->Location.X > p2.X) multiplyer = -1;
-				label1->Location = System::Drawing::Point(label1->Location.X + step*multiplyer, label1->Location.Y);
+				label1->Location = System::Drawing::Point(label1->Location.X + step * multiplyer, label1->Location.Y);
 			}
 			else if (label2->Location.X != p1.X) {
 				if (label2->Location.X > p1.X) multiplyer = -1;
-				label2->Location = System::Drawing::Point(label2->Location.X + step*multiplyer, label1->Location.Y);
+				label2->Location = System::Drawing::Point(label2->Location.X + step * multiplyer, label1->Location.Y);
 			}
 			else {
 				isSwapping = false;
@@ -138,7 +138,7 @@ namespace AlgoVisualizer {
 			}
 			else if (labelToMove->Location.Y != finalPos.Y) {
 				if (labelToMove->Location.Y > finalPos.Y) yMul = -1;
-				labelToMove->Location = Point(labelToMove->Location.X, labelToMove->Location.Y + step*yMul);
+				labelToMove->Location = Point(labelToMove->Location.X, labelToMove->Location.Y + step * yMul);
 			}
 			else {
 				movingUp = false;
@@ -165,7 +165,7 @@ namespace AlgoVisualizer {
 					}
 					else
 					{
-						label1 = labelArray[j+1];
+						label1 = labelArray[j + 1];
 						label2 = labelArray[j];
 						label1->BackColor = System::Drawing::Color::LightGreen;
 						label2->BackColor = System::Drawing::Color::LightGreen;
@@ -254,7 +254,7 @@ namespace AlgoVisualizer {
 						while ((DateTime::Now - startTime).TotalMilliseconds < 500) {
 							Application::DoEvents();
 						}
-						finalPos = Point(labelToMove->Location.X+50,labelToMove->Location.Y);
+						finalPos = Point(labelToMove->Location.X + 50, labelToMove->Location.Y);
 						moveTimer->Start();
 						movingUp = true;
 						while (movingUp)
@@ -301,129 +301,171 @@ namespace AlgoVisualizer {
 			mergeSort(arr, 0, n - 1);
 		}
 		else if (algoName->Equals("Quick Sort")) {
-			QuickSort(arr, 0, n - 1);
+			Label^ jLabel = gcnew Label();
+			jLabel->Text = "i";
+			jLabel->Location = Point(labelArray[0]->Location.X, labelArray[0]->Location.Y);
+			jLabel->AutoSize = false;
+			jLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			jLabel->TextAlign = ContentAlignment::MiddleLeft;
+			jLabel->Size = System::Drawing::Size(30, 30);
+			jLabel->BackColor = Color::Transparent;
+			this->Controls->Add(jLabel);
+			Label^ iLabel = gcnew Label();
+			iLabel->Text = "j";
+			iLabel->Location = Point(labelArray[0]->Location.X, labelArray[0]->Location.Y);
+			iLabel->AutoSize = false;
+			iLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			iLabel->TextAlign = ContentAlignment::MiddleLeft;
+			iLabel->Size = System::Drawing::Size(30, 30);
+			iLabel->BackColor = Color::Transparent;
+			this->Controls->Add(iLabel);
+			Label^ pivotLabel = gcnew Label();
+			pivotLabel->Text = "pivot";
+			pivotLabel->Location = Point(labelArray[0]->Location.X, labelArray[0]->Location.Y);
+			pivotLabel->AutoSize = false;
+			pivotLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			pivotLabel->TextAlign = ContentAlignment::MiddleLeft;
+			pivotLabel->Size = System::Drawing::Size(60, 30);
+			this->Controls->Add(pivotLabel);
+			QuickSort(arr, 0, n - 1, iLabel, jLabel, pivotLabel);
+			for (int i = 0;i < n;i++) {
+				Debug::WriteLine(arr[i]);
+			}
+			this->Controls->Remove(iLabel);
+			this->Controls->Remove(jLabel);
+			this->Controls->Remove(pivotLabel);
 		}
 	}
 
-	void QuickSort(System::Collections::Generic::List<int>^ arr, int const left, int const right) {
-		if (left < right) {
-			int pivot = partition(arr, left, right);
-			QuickSort(arr,left, pivot-1);
-			QuickSort(arr,pivot+1, right);
-		}
-	}
+		   void QuickSort(System::Collections::Generic::List<int>^ arr, int left, int right, Label^ iLabel, Label^ jLabel, Label^ pivotLabel) {
+			   if (left < right) {
+				   int pivot = partition(arr, left, right, iLabel, jLabel, pivotLabel);
+				   QuickSort(arr, left, pivot - 1, iLabel, jLabel, pivotLabel);
+				   QuickSort(arr, pivot + 1, right, iLabel, jLabel, pivotLabel);
+			   }
+		   }
 
-	int partition(System::Collections::Generic::List<int>^ arr, int const left, int const right) {
-		int pivot = arr[left];
-		int i = left+1;
-		int j = right;
-		while (i<j)
-		{
-			while (arr[i] <= pivot && i < right) {
-				i++;
-			}
-			while (arr[j] > pivot) {
-				j--;
-			}
-			if (i <= j) {
-				swap(arr, i, j);
-				isSwapping = true;
-				while (isSwapping)
-				{
-					Application::DoEvents();
-				}
-				label1->BackColor = System::Drawing::Color::Yellow;
-				label2->BackColor = System::Drawing::Color::Yellow;
-			}
-		}
-		swap(arr, j, left);
-		isSwapping = true;
-		while (isSwapping)
-		{
-			Application::DoEvents();
-		}
-		label1->BackColor = System::Drawing::Color::Yellow;
-		label2->BackColor = System::Drawing::Color::Yellow;
-		return j;
-	}
+		   int partition(System::Collections::Generic::List<int>^ arr, int left, int right, Label^ iLabel, Label^ jLabel, Label^ pivotLabel) {
+			   int pivot = arr[left];
+			   int i = left;
+			   int j = right;
+			   Debug::WriteLine(i+" "+j);
+			   pivotLabel->Location = Point(labelArray[left]->Location.X, labelArray[left]->Location.Y - 30);
+			   jLabel->Location = Point(labelArray[i]->Location.X, labelArray[i]->Location.Y+30);
+			   iLabel->Location = Point(labelArray[j]->Location.X, labelArray[j]->Location.Y+30);
+			   while (i < j)
+			   {
+				   while (arr[i] <= pivot && i < right) {
+					   i++;
+					   jLabel->Location = Point(labelArray[i]->Location.X, labelArray[i]->Location.Y + 30);
+					   if (jLabel->Location == iLabel->Location) jLabel->Location = Point(jLabel->Location.X + 15, jLabel->Location.Y);
+					   wait(1000);
+				   }
+				   while (arr[j] > pivot) {
+					   j--;
+					   iLabel->Location = Point(labelArray[j]->Location.X, labelArray[j]->Location.Y + 30);
+					   if (jLabel->Location == iLabel->Location) jLabel->Location = Point(jLabel->Location.X + 15, jLabel->Location.Y);
+					   wait(1000);
+				   }
+				   if (i < j) {
+					   swap(arr, i, j);
+					   isSwapping = true;
+					   while (isSwapping)
+					   {
+						   Application::DoEvents();
+					   }
+					   label1->BackColor = System::Drawing::Color::Yellow;
+					   label2->BackColor = System::Drawing::Color::Yellow;
+				   }
+			   }
+			   swap(arr, left, j);
+			   isSwapping = true;
+			   while (isSwapping)
+			   {
+				   Application::DoEvents();
+			   }
+			   label1->BackColor = System::Drawing::Color::Yellow;
+			   label2->BackColor = System::Drawing::Color::Yellow;
+			   return j;
+		   }
 
-	void mergeSort(System::Collections::Generic::List<int>^ arr, int const left, int const right)
-	{
-		if (left < right) {
-			int mid = (left + right) / 2;
-			mergeSort(arr, left, mid);
-			for (int i = left;i < mid;i++) {
-				int red = std::rand() % 256;  // Random value between 0 and 255
-				int green = std::rand() % 256;
-				int blue = std::rand() % 256;
-				//labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
-			}
-			mergeSort(arr, mid + 1, right);
-			for (int i = mid;i < right;i++) {
-				int red = std::rand() % 256;  // Random value between 0 and 255
-				int green = std::rand() % 256;
-				int blue = std::rand() % 256;
-				//labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
-			}
-			merge(arr, left, mid, right);
-		}
-	}
+		   void mergeSort(System::Collections::Generic::List<int>^ arr, int const left, int const right)
+		   {
+			   if (left < right) {
+				   int mid = (left + right) / 2;
+				   mergeSort(arr, left, mid);
+				   for (int i = left;i < mid;i++) {
+					   int red = std::rand() % 256;  // Random value between 0 and 255
+					   int green = std::rand() % 256;
+					   int blue = std::rand() % 256;
+					   //labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
+				   }
+				   mergeSort(arr, mid + 1, right);
+				   for (int i = mid;i < right;i++) {
+					   int red = std::rand() % 256;  // Random value between 0 and 255
+					   int green = std::rand() % 256;
+					   int blue = std::rand() % 256;
+					   //labelArray[i]->BackColor = System::Drawing::Color::FromArgb(red, green, blue);
+				   }
+				   merge(arr, left, mid, right);
+			   }
+		   }
 
-	void merge(System::Collections::Generic::List<int>^ arr, int l, int mid, int r)
-	{
-		for (int x = l;x <= r;x++) {
-			labelArray[x]->BackColor = System::Drawing::Color::Aqua;
-		}
+		   void merge(System::Collections::Generic::List<int>^ arr, int l, int mid, int r)
+		   {
+			   for (int x = l;x <= r;x++) {
+				   labelArray[x]->BackColor = System::Drawing::Color::Aqua;
+			   }
 
-		wait(1000);
+			   wait(1000);
 
-		System::Collections::Generic::List<int>^ arr2 = gcnew System::Collections::Generic::List<int>(r + 1);
-		int i = l;
-		int j = mid + 1;
-		int curr = l;
+			   System::Collections::Generic::List<int>^ arr2 = gcnew System::Collections::Generic::List<int>(r + 1);
+			   int i = l;
+			   int j = mid + 1;
+			   int curr = l;
 
-		while (j <= r && i <= mid) {
-			if (arr[i] < arr[j]) {
-				arr2->Add(arr[i]); // Use Add to add elements to the List
-				i++;
-			}
-			else {
-				arr2->Add(arr[j]); // Use Add to add elements to the List
-				j++;
-			}
-			curr++;
-		}
+			   while (j <= r && i <= mid) {
+				   if (arr[i] < arr[j]) {
+					   arr2->Add(arr[i]); // Use Add to add elements to the List
+					   i++;
+				   }
+				   else {
+					   arr2->Add(arr[j]); // Use Add to add elements to the List
+					   j++;
+				   }
+				   curr++;
+			   }
 
-		while (i <= mid) {
-			arr2->Add(arr[i]); // Add remaining elements from the left subarray
-			i++;
-			curr++;
-		}
+			   while (i <= mid) {
+				   arr2->Add(arr[i]); // Add remaining elements from the left subarray
+				   i++;
+				   curr++;
+			   }
 
-		while (j <= r) {
-			arr2->Add(arr[j]); // Add remaining elements from the right subarray
-			j++;
-			curr++;
-		}
+			   while (j <= r) {
+				   arr2->Add(arr[j]); // Add remaining elements from the right subarray
+				   j++;
+				   curr++;
+			   }
 
-		// Copy elements back to the original array 'arr'
-		for (int k = l; k <= r; k++) {
-			arr[k] = arr2[k - l]; // Subtract 'l' to map the index correctly
-			
-		}
+			   // Copy elements back to the original array 'arr'
+			   for (int k = l; k <= r; k++) {
+				   arr[k] = arr2[k - l]; // Subtract 'l' to map the index correctly
 
-		for (int x = l;x <= r;x++) {
-			labelArray[x]->BackColor = System::Drawing::Color::Yellow;
-		}
+			   }
 
-	}
+			   for (int x = l;x <= r;x++) {
+				   labelArray[x]->BackColor = System::Drawing::Color::Yellow;
+			   }
 
-	void wait(int n) {
-		DateTime startTime = DateTime::Now;
-		while ((DateTime::Now - startTime).TotalMilliseconds < n) {
-			Application::DoEvents();
-		}
-	}
+		   }
+
+		   void wait(int n) {
+			   DateTime startTime = DateTime::Now;
+			   while ((DateTime::Now - startTime).TotalMilliseconds < n) {
+				   Application::DoEvents();
+			   }
+		   }
 
 		   void swap(System::Collections::Generic::List<int>^ arr, int i, int j) {
 			   int temp = arr[i];
