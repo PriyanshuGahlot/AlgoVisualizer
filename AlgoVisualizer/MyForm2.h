@@ -357,15 +357,23 @@ namespace AlgoVisualizer {
 			   {
 				   while (arr[i] <= pivot && i < right) {
 					   i++;
-					   jLabel->Location = Point(labelArray[i]->Location.X, labelArray[i]->Location.Y + 30);
+					   jLabel->Location = Point(labelArray[i]->Location.X, labelArray[i]->Location.Y + 30);//idk why tf i have to set jlabel position as ith index peice of shit this is. shit code shit project idk why the fuck i am doing this. i want to throw my laptop on the ground and fo and drink cold coffee or smthing i hatge this shit but uk i like ot suffer so i will continuw this ig:)
 					   if (jLabel->Location == iLabel->Location) jLabel->Location = Point(jLabel->Location.X + 15, jLabel->Location.Y);
+					   labelArray[i]->BackColor = System::Drawing::Color::LightGreen;
+					   labelArray[left]->BackColor = System::Drawing::Color::LightGreen;
 					   wait(1000);
+					   labelArray[i]->BackColor = System::Drawing::Color::Yellow;
+					   labelArray[left]->BackColor = System::Drawing::Color::Yellow;
 				   }
 				   while (arr[j] > pivot) {
 					   j--;
 					   iLabel->Location = Point(labelArray[j]->Location.X, labelArray[j]->Location.Y + 30);
 					   if (jLabel->Location == iLabel->Location) jLabel->Location = Point(jLabel->Location.X + 15, jLabel->Location.Y);
+					   labelArray[j]->BackColor = System::Drawing::Color::LightGreen;
+					   labelArray[left]->BackColor = System::Drawing::Color::LightGreen;
 					   wait(1000);
+					   labelArray[j]->BackColor = System::Drawing::Color::Yellow;
+					   labelArray[left]->BackColor = System::Drawing::Color::Yellow;
 				   }
 				   if (i < j) {
 					   swap(arr, i, j);
@@ -373,7 +381,13 @@ namespace AlgoVisualizer {
 					   while (isSwapping)
 					   {
 						   Application::DoEvents();
+						   this->Controls->Remove(iLabel);
+						   this->Controls->Remove(jLabel);
+						   this->Controls->Remove(pivotLabel);
 					   }
+					   this->Controls->Add(iLabel);
+					   this->Controls->Add(jLabel);
+					   this->Controls->Add(pivotLabel);
 					   label1->BackColor = System::Drawing::Color::Yellow;
 					   label2->BackColor = System::Drawing::Color::Yellow;
 				   }
@@ -383,7 +397,13 @@ namespace AlgoVisualizer {
 			   while (isSwapping)
 			   {
 				   Application::DoEvents();
+				   this->Controls->Remove(iLabel);
+				   this->Controls->Remove(jLabel);
+				   this->Controls->Remove(pivotLabel);
 			   }
+			   this->Controls->Add(iLabel);
+			   this->Controls->Add(jLabel);
+			   this->Controls->Add(pivotLabel);
 			   label1->BackColor = System::Drawing::Color::Yellow;
 			   label2->BackColor = System::Drawing::Color::Yellow;
 			   return j;
